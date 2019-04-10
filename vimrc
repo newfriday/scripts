@@ -65,7 +65,7 @@ Plugin 'winmanager'
 Plugin 'taglist.vim'
 Plugin 'ctrlp.vim'
 Plugin 'cscope'
-
+Plugin 'minibufexplorerpp'
 
 "所有插件都应该在这一行之前
 call vundle#end()
