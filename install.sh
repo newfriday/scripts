@@ -25,6 +25,26 @@ function load_tmux()
 	[ -f /root/.tmux.conf ] || cp "$ROOT/tmux.conf" /root/.tmux.conf
 }
 
+function load_mybash()
+{
+	mkdir -p /usr/bin/mybash
+
+	cat /etc/profile | grep mybash
+	if [ $? -ne 0 ]; then
+		echo "export PATH=\${PATH}:/usr/bin/mybash" >> /etc/profile
+		source /etc/profile
+	fi 
+
+	chmod +x backup_history.sh 
+	cp -f backup_history.sh /usr/bin/mybash/
+
+	cat /etc/crontab | grep mybash
+	if [ $? -ne 0 ]; then
+		echo "0 19 * * 6 /usr/bin/mybash/backup_history.sh" >> /etc/crontab
+		service crond restart > /dev/null 2>&1
+	fi
+}
+
 function config_centos()
 {
 	cp -f "$ROOT/iptables.rules" /etc/sysconfig/iptables.rules
@@ -49,6 +69,7 @@ function config_ubuntu()
 
 load_vim
 load_tmux
+load_mybash
 
 if [ "X$ARCH" == "Xcentos" ]; then
 	echo "config centos ..."
