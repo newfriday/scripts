@@ -51,9 +51,12 @@ function config_centos()
 	cat /etc/rc.d/rc.local | grep "iptables-restore < /etc/sysconfig/iptables.rules" > /dev/null
 	if [ $? -ne 0 ]; then
 		[ -f /etc/rc.d/rc.local ] && \
+		echo "iptables -F" && \
 		echo "iptables-restore < /etc/sysconfig/iptables.rules" >> /etc/rc.d/rc.local && \
 		echo "config iptable rules done"
 	fi
+
+	chmod +x /etc/rc.d/rc.local
 
 	[ -f /etc/sysconfig/selinux ] && \
 	sed -i 's/^SELINUX=enforcing$/SELINUX=disabled/' /etc/sysconfig/selinux && \
