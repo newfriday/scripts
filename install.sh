@@ -25,6 +25,11 @@ function load_tmux()
 	[ -f /root/.tmux.conf ] || cp "$ROOT/tmux.conf" /root/.tmux.conf
 }
 
+function load_gitconf()
+{
+	[ -f /root/.gitconfig ] || cp "$ROOT/gitconfig" /root/.gitconfig
+}
+
 function load_mybash()
 {
 	mkdir -p /usr/bin/mybash
@@ -72,6 +77,7 @@ function config_ubuntu()
 
 load_vim
 load_tmux
+load_gitconf
 load_mybash
 
 if [ "X$ARCH" == "Xcentos" ]; then

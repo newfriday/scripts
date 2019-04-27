@@ -1,0 +1,12 @@
+[user]
+	email = newfriday@126.com
+	name = HuangYong
+[core]
+	editor = /usr/bin/vim
+	ui = true
+[color]
+	status = true
+	diff = true
+	branch = true
+[push]
+	default = matching
