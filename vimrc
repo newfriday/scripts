@@ -87,3 +87,11 @@ filetype plugin indent on
 "nerdtree vim打开文件时默认光标在文件的编辑区
 "wincmd w
 "autocmd VimEnter * wincmd w
+"
+"自动删除行尾空白
+autocmd BufWritePre *.py call vundle#scripts#strip_trailing()
+autocmd BufWritePre *.h call vundle#scripts#strip_trailing()
+autocmd BufWritePre *.c call vundle#scripts#strip_trailing()
+autocmd BufWritePre *.S call vundle#scripts#strip_trailing()
+autocmd BufWritePre *.cpp call vundle#scripts#strip_trailing()
+autocmd BufWritePre Makefile call vundle#scripts#strip_trailing()
