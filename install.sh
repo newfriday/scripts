@@ -84,6 +84,9 @@ load_tmux
 load_gitconf
 load_mybash
 
+# set ENV EDITOR as vim so that git tools can use plugins successfully
+export EDITOR=vim
+
 if [ "X$ARCH" == "Xcentos" ]; then
 	echo "config centos ..."
 	config_centos
