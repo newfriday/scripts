@@ -24,10 +24,28 @@ function load_vim()
     cp "$ROOT/vimrc" /root/.vimrc
 }
 
-# move vim-go dependent binaries to the default GOPATH '/root/go'
+# install vim-go dependency pkgs to the default GOPATH '/root/go'
+# there are two ways to do it
+# 1. execute :GoInstallBinaries in vim editor manually
+# 2. unpack the existing(if we already installed) go binaries
+#    and dependency pkgs, copy it to the GOPATH
+# the following function do it in the second way, but correctness
+# can not be guaranteed.
+# Note that vim-go need vim version greater than 8.1, we should
+# install vim to /usr/bin from the source code as the following
+# steps:
+# 1. git clone https://github.com/newfriday/vim.git
+# 2. cd vim
+# 3. ./configure --with-features=huge --enable-pythoninterp --prefix /usr
+# 4. make -j
+# 5. make install
+
 function load_golang()
 {
-    [ rpm -qi golang ] && yum install -y golang
+    rpm -qi golang
+    if [ $? -eq 1 ]; then
+        yum install -y golang
+    fi
     [ -d /root/go ] && rm -rf /root/go
     mv $ROOT/go /root/
 }
