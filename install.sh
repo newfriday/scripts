@@ -13,6 +13,7 @@ PLUGINS="$ROOT/plugins"
 
 [ -d $ROOT/plugins ] && rm -rf $ROOT/plugins
 tar -xf $ROOT/plugins.tar.gz
+tar -xf $ROOT/gobinaries.tar.gz
 
 function load_vim()
 {
@@ -21,6 +22,14 @@ function load_vim()
 
     rm -f /root/.vimrc
     cp "$ROOT/vimrc" /root/.vimrc
+}
+
+# move vim-go dependent binaries to the default GOPATH '/root/go'
+function load_golang()
+{
+    [ rpm -qi golang ] && yum install -y golang
+    [ -d /root/go ] && rm -rf /root/go
+    mv $ROOT/go /root/
 }
 
 function load_tmux()
@@ -80,6 +89,7 @@ function config_ubuntu()
 }
 
 load_vim
+load_golang
 load_tmux
 load_gitconf
 load_mybash
