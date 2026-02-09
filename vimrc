@@ -24,6 +24,7 @@ set shiftwidth=4
 set expandtab
 
 set nocompatible
+set tags=./tags;,tags;
 
 " TagList 配置
 " 设置vim打开文件时自动打开函数列表
@@ -32,6 +33,11 @@ let Tlist_Auto_Open=0
 let Tlist_Show_One_File = 1
 " 最后一个窗口是taglist时,vim退出
 let Tlist_Exit_OnlyWindow = 1
+
+let g:go_def_mode  = 'gopls'
+let g:go_info_mode = 'gopls'
+let $GO111MODULE = "on"
+
 " 设置手动打开函数列表的快捷键
 nmap tl :TlistToggle<cr>
 
@@ -67,7 +73,6 @@ Plugin 'taglist.vim'
 Plugin 'ctrlp.vim'
 Plugin 'cscope'
 Plugin 'minibufexplorerpp'
-Plugin 'fatih/vim-go'
 
 "所有插件都应该在这一行之前
 call vundle#end()

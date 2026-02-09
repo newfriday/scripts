@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+# Find go.mod upward to locate project root
+ROOT="$PWD"
+while [ ! -f "$ROOT/go.mod" ]; do
+    [ "$ROOT" = "/" ] && {
+        echo "go-rebuild-tags: go.mod not found"
+        exit 1
+    }
+    ROOT="$(dirname "$ROOT")"
+done
+
+cd "$ROOT"
+
+# Check gotags
+command -v gotags >/dev/null 2>&1 || {
+    echo "go-rebuild-tags: gotags not found in PATH"
+    exit 1
+}
+
+echo "[go-rebuild-tags] rebuilding tags in $ROOT"
+gotags -R . | grep -v $'\trpm/' > tags
+echo "[go-rebuild-tags] done: $ROOT/tags"
+

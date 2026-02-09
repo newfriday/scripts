@@ -36,7 +36,7 @@ function load_vim()
 # steps:
 # 1. git clone https://github.com/newfriday/vim.git
 # 2. cd vim
-# 3. ./configure --with-features=huge --enable-pythoninterp --prefix /usr
+# 3. ./configure --with-features=huge --enable-python3interp --with-python3-config-dir=/usr/include/python3.6m --prefix /usr
 # 4. make -j
 # 5. make install
 
@@ -48,6 +48,16 @@ function load_golang()
     fi
     [ -d /root/go ] && rm -rf /root/go
     mv $ROOT/go /root/
+
+    if ! grep -q "export GOPATH=" /etc/profile; then
+        sed -i '0,/^export PATH=/ {
+            /^export PATH=/i export GOPATH=/root/go
+        }' /etc/profile
+        echo "Please source /etc/profile manually"
+    fi
+
+    cp go-rebuild-tags /usr/bin
+    echo "use go-rebuild-tags to rebuild golang tags"
 }
 
 function load_tmux()
